@@ -8,3 +8,16 @@ app.config.from_object(Config)
 db.init_app(app)
 
 migrate = Migrate(app, db)
+
+from app.models import (
+    role_model,
+    user_model,
+    company_model,
+    product_model,
+    movement_model,
+    category_model,
+    supplier_model,
+    inventory_model,
+    repository_model,
+    type_movement_model
+)
