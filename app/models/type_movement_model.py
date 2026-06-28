@@ -1,0 +1,15 @@
+from db import db
+from sqlalchemy import Integer, String, Text, Boolean, DateTime, func
+from sqlalchemy.orm import Mapped, mapped_column
+from datetime import datetime
+
+class TypeMovement(db.Model):
+
+    __tablename__ = "type_movements"
+
+    id_type_movement: Mapped[id] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    status: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
