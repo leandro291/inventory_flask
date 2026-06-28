@@ -13,7 +13,7 @@ class Product(db.Model):
     description: Mapped[str] = mapped_column(Text, nullable=False)
     image: Mapped[str] = mapped_column(Text, nullable=False)
     brand: Mapped[str] = mapped_column(String(255), nullable=False)
-    purhcase_price: Mapped[float] = mapped_column(DECIMAL(10,4), nullable=False)
+    purchase_price: Mapped[float] = mapped_column(DECIMAL(10,4), nullable=False)
     sale_price: Mapped[float] = mapped_column(DECIMAL(10,4), nullable=False)
     status: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
