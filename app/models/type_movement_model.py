@@ -7,7 +7,7 @@ class TypeMovement(db.Model):
 
     __tablename__ = "type_movements"
 
-    id_type_movement: Mapped[id] = mapped_column(Integer, primary_key=True)
+    id_type_movement: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)
     status: Mapped[bool] = mapped_column(Boolean, default=True)
