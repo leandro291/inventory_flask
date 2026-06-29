@@ -20,6 +20,6 @@ class Role(db.Model):
             "name": self.name,
             "description": self.description,
             "status": self.status,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "created_at": str(self.created_at),
+            "updated_at": str(self.updated_at)
         }
