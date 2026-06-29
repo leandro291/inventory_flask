@@ -21,3 +21,5 @@ from app.models import (
     repository_model,
     type_movement_model
 )
+
+from app import router
