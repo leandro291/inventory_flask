@@ -14,4 +14,12 @@ class Role(db.Model):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
     
-    
+    def to_json(self):
+        return {
+            "id": self.id_role,
+            "name": self.name,
+            "description": self.description,
+            "status": self.status,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
