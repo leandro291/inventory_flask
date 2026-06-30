@@ -4,6 +4,7 @@ from flask_restful import Resource
 from pydantic import ValidationError
 from app.models.role_model import Role
 from app.schemas.role_schema import RoleSchema
+from app.services.role_service import role_service
 
 class RoleResource(Resource):
     
@@ -11,7 +12,7 @@ class RoleResource(Resource):
         
         try:
 
-            roles: list[Role] = Role.query.all()
+            roles: list[Role] = role_service.get_all()
             roles_list = [role.to_json() for role in roles]
             return roles_list
 
@@ -26,20 +27,14 @@ class RoleResource(Resource):
             data = request.get_json()
             validated_data = RoleSchema.model_validate(data)
 
-            name = Role.query.filter_by(name=validated_data.name).first()
+            name = role_service.get_by_name(validated_data.name)
 
             if name:
                 return {
                     'error': 'role alredy exists'
                 }, 400
 
-            created_role = Role(
-                name=validated_data.name,
-                description=validated_data.description
-            )
-
-            db.session.add(created_role)
-            db.session.commit()
+            created_role = role_service.create(validated_data)
 
             return created_role.to_json(), 200
 
@@ -58,72 +53,68 @@ class ManageRolResource(Resource):
     def get(self, id_role: int):
         try:
             
-            rol: Role = Role.query.filter_by(id_role=id_role).first()
+            rol: Role = role_service.get_by_id(id_role)
 
             if rol is None:
                 return {
                     'error': "rol nout found"
-                }, 400
+                }, 404
             
             return rol.to_json(), 200
 
         except Exception as e:
             return {
                 'error': str(e)
-            }
+            }, 400
 
     def put(self, id_role: int):
         try:
 
-            rol: Role = Role.query.filter_by(id_role=id_role).first()
+            role: Role = role_service.get_by_id(id_role)
 
-            if rol is None:
+            if role is None:
                 return {
-                    'error': "rol nout found"
-                }, 400
+                    'error': "role nout found"
+                }, 404
 
             data = request.get_json()
             validated_data = RoleSchema.model_validate(data)
 
-            name = Role.query.filter_by(name=validated_data.name).first()
+            name = role_service.get_by_name(validated_data.name)
 
             if name:
                 return {
                     'error': 'role alredy exists'
                 }, 400
             
-            rol.name = validated_data.name
-            rol.description = validated_data.description
+            role = role_service.update(role, validated_data)
 
-            db.session.commit()
-
-            return rol.to_json(), 200
+            return role.to_json(), 200
         
         except ValidationError as e:
             return {
                 'error': e.errors()
-            }
+            }, 400
         except Exception as e:
             return {
                 'error': str(e)
-            }
+            }, 400
 
     def delete(self, id_role: int):
         try:
-            rol: Role = Role.query.filter_by(id_role=id_role).first()
 
-            if rol is None:
+            role: Role = role_service.get_by_id(id_role)
+
+            if role is None:
                 return {
                     'error': "rol nout found"
-                }, 400
+                }, 404
             
-            rol.status = False
-
-            db.session.commit()
+            role = role_service.delete(role)
 
             return None, 200
             
         except Exception as e:
             return {
                 'error': str(e)
-            }
+            }, 400
