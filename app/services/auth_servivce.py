@@ -16,7 +16,8 @@ class AuthService:
             name=data.name,
             last_name=data.last_name,
             email=data.email,
-            password=password_helper.hash_password(data.password)
+            password=password_helper.hash_password(data.password),
+            id_role=data.id_role
         )
 
         db.session.add(create_user)
