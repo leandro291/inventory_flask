@@ -13,3 +13,12 @@ class Category(db.Model):
     status: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
+
+    def to_json(self) -> dict[str, str]:
+        return {
+            'id_category': self.id_category,
+            'name': self.name,
+            'description': self.description,
+            'created_at': str(self.created_at),
+            'updated_at': str(self.updated_at)
+        }
