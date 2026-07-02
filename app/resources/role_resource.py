@@ -14,7 +14,7 @@ class RoleResource(Resource):
 
             roles: list[Role] = role_service.get_all()
             roles_list = [role.to_json() for role in roles]
-            return roles_list
+            return roles_list, 200
 
         except Exception as e:
             return {
