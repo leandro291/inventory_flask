@@ -15,12 +15,12 @@ class LoginResource(Resource):
 
             user = auth_service.get_by_email(validated_data.email)
 
-            if user:
+            if user is None:
                 return {
-                    'error': 'email alredy exists'
+                    'error': 'email nout found'
                 }, 401
             
-            is_password_valid = password_helper.verify_password(user.password, validated_data.password)
+            is_password_valid = password_helper.verify_password(validated_data.password, user.password)
 
             if not is_password_valid:
                 return {
@@ -48,7 +48,7 @@ class RegisterResource(Resource):
     def post(self):
         try:
             data = request.get_json()
-            validated_data = RegisterSchema(data)
+            validated_data = RegisterSchema.model_validate(data)
 
             user = auth_service.get_by_email(validated_data.email)
 
