@@ -13,3 +13,12 @@ class TypeMovement(db.Model):
     status: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
+
+    def to_json(self):
+        return {
+            'id_type_movement': self.id_type_movement,
+            'name': self.name,
+            'description': self.description,
+            'created_at': str(self.created_at),
+            'updated_at': str(self.updated_at)
+        }
