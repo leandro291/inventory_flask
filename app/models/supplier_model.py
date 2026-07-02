@@ -15,3 +15,14 @@ class Supplier(db.Model):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
     id_company: Mapped[int] = mapped_column(ForeignKey('companies.id_company'), nullable=False)
+
+    def to_json(self) -> dict[str, str]:
+        return {
+            'id_supplier': self.id_supplier,
+            'name': self.name,
+            'email': self.email,
+            'telephone': self.telephone,
+            'created_at': str(self.created_at),
+            'updated_at': str(self.updated_at),
+            'id_company': self.id_company
+        }
