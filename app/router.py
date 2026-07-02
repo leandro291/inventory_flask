@@ -7,6 +7,7 @@ from app.resources.role_resource import RoleResource, ManagerRoleResource
 from app.resources.auth_resource import LoginResource, RegisterResource
 from app.resources.supplier_resource import SupplierResource, ManagerSupplierResource
 from app.resources.repository_resource import RepositoryResource, ManagerRepositoryResource
+from app.resources.type_movement_resource import TypeMovementResource, ManagerTypeMovementResource
 
 api = Api(app, prefix="/api/v1")
 
@@ -24,6 +25,9 @@ api.add_resource(ManagerSupplierResource, "/supplier/<int:id_supplier>")
 
 api.add_resource(RepositoryResource, "/repository")
 api.add_resource(ManagerRepositoryResource, "/repository/<int:id_repository>")
+
+api.add_resource(TypeMovementResource, "/type-movement")
+api.add_resource(ManagerTypeMovementResource, "/type-movement/<int:id_type_movement>")
 
 api.add_resource(CompanyResource, "/company")
 api.add_resource(ManagerCompanyResource, "/company/<int:id_company>")
