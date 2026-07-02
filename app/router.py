@@ -6,6 +6,7 @@ from app.resources.company_resource import CompanyResource, ManagerCompanyResour
 from app.resources.role_resource import RoleResource, ManagerRoleResource
 from app.resources.auth_resource import LoginResource, RegisterResource
 from app.resources.supplier_resource import SupplierResource, ManagerSupplierResource
+from app.resources.repository_resource import RepositoryResource, ManagerRepositoryResource
 
 api = Api(app, prefix="/api/v1")
 
@@ -20,6 +21,9 @@ api.add_resource(ManagerRoleResource, "/role/<int:id_role>")
 
 api.add_resource(SupplierResource, "/supplier")
 api.add_resource(ManagerSupplierResource, "/supplier/<int:id_supplier>")
+
+api.add_resource(RepositoryResource, "/repository")
+api.add_resource(ManagerRepositoryResource, "/repository/<int:id_repository>")
 
 api.add_resource(CompanyResource, "/company")
 api.add_resource(ManagerCompanyResource, "/company/<int:id_company>")
