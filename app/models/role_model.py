@@ -16,10 +16,9 @@ class Role(db.Model):
     
     def to_json(self):
         return {
-            "id": self.id_role,
+            'id_role': self.id_role,
             "name": self.name,
             "description": self.description,
-            "status": self.status,
             "created_at": str(self.created_at),
             "updated_at": str(self.updated_at)
         }
