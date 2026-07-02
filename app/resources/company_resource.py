@@ -97,9 +97,9 @@ class ManagerCompanyResource(Resource):
                     'error': 'company not found'
                 }, 404
             
-            company_delete = company_service.delete(company)
+            company_service.delete(company)
 
-            return company_delete.to_json(), 200
+            return None, 200
             
         except Exception as e:
             return {
