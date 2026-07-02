@@ -13,3 +13,12 @@ class Repository(db.Model):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
+
+    def to_json(self):
+        return {
+            'id_repository': self.id_repository,
+            'name': self.name,
+            'location': self.location,
+            'created_at': str(self.created_at),
+            'updated_at': str(self.updated_at)
+        }
