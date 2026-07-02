@@ -11,3 +11,4 @@ class RegisterSchema(BaseModel):
     last_name: str
     email: EmailStr
     password: str
+    id_role: int
