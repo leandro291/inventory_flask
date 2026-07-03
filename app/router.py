@@ -1,13 +1,14 @@
 from app import app
 from flask_restful import Api
 
-from app.resources.category_resource import CategoryResource, ManagerCategoryResource
-from app.resources.company_resource import CompanyResource, ManagerCompanyResource
-from app.resources.role_resource import RoleResource, ManagerRoleResource
 from app.resources.auth_resource import LoginResource, RegisterResource
+from app.resources.role_resource import RoleResource, ManagerRoleResource
+from app.resources.company_resource import CompanyResource, ManagerCompanyResource
 from app.resources.supplier_resource import SupplierResource, ManagerSupplierResource
+from app.resources.category_resource import CategoryResource, ManagerCategoryResource
 from app.resources.repository_resource import RepositoryResource, ManagerRepositoryResource
 from app.resources.type_movement_resource import TypeMovementResource, ManagerTypeMovementResource
+from app.resources.product_resource import ProductResource
 
 api = Api(app, prefix="/api/v1")
 
@@ -28,6 +29,8 @@ api.add_resource(ManagerRepositoryResource, "/repository/<int:id_repository>")
 
 api.add_resource(TypeMovementResource, "/type-movement")
 api.add_resource(ManagerTypeMovementResource, "/type-movement/<int:id_type_movement>")
+
+api.add_resource(ProductResource, "/product")
 
 api.add_resource(CompanyResource, "/company")
 api.add_resource(ManagerCompanyResource, "/company/<int:id_company>")
