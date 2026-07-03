@@ -1,8 +1,11 @@
 import os
 import bcrypt
-from typing import Union
-from cryptography.fernet import Fernet
 import base64 
+import cloudinary
+from typing import Union
+import cloudinary.uploader
+from cryptography.fernet import Fernet
+from werkzeug.datastructures import FileStorage
 
 class PasswordHelper:
 
@@ -45,6 +48,62 @@ class CryptoHelper:
                 raise ValueError('Invalid key length')
         except ValueError as e:
             raise ValueError(f'{e}')
+        
+class CloudinaryHelper:
+    def __init__(self):
+        cloudinary.config( 
+            cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'), 
+            api_key = os.getenv('CLOUDINARY_API_KEY'), 
+            api_secret = os.getenv('CLOUDINARY_API_SECRET'),
+            secure=True
+        )
 
+    def upload_image(self, image: FileStorage, folder: str="products") -> tuple[str, str] | None:
+        try:
+
+            response = cloudinary.uploader.upload(
+                image,
+                folder=folder
+            )
+
+            secure_url = response.get('secure_url')
+            public_id = response.get('public_id')
+
+            return secure_url, public_id
+        except Exception as e:
+            return None
+        
+    def get_secure_url(self, public_id: str) -> str:
+        try:
+            
+            secure_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                secure=True
+            )
+
+            return secure_url[0]
+
+        except Exception as e:
+            return None
+        
+    def delete_image(self, public_id: str) -> bool:
+        try:
+            cloudinary.uploader.destroy(public_id)
+            return True
+        except Exception as e:
+            return False
+        
+    def validate_image(self, image: FileStorage) -> bool | tuple[bool, str]:
+
+        if not image:
+            raise Exception("Image is required")
+        
+        if image.filename == "":
+            raise Exception("Image is required")
+        
+        if not image.content_type.startswith("image/"):
+            raise Exception("Invalid image type")
+    
 crypto_helper = CryptoHelper()
 password_helper = PasswordHelper()
+cloudinary_helper = CloudinaryHelper()
