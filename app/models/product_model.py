@@ -20,3 +20,16 @@ class Product(db.Model):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), onupdate=func.now())
     id_category: Mapped[int] = mapped_column(ForeignKey('categories.id_category'), nullable=False)
 
+    def to_json(self) -> dict[str, str]:
+        return {
+            'id_product': self.id_product,
+            'name': self.name,
+            'description': self.description,
+            'image': self.image,
+            'brand': self.brand,
+            'purchase_price': float(self.purchase_price),
+            'sale_price': float(self.sale_price),
+            'created_at': str(self.created_at),
+            'updated_at': str(self.updated_at),
+            'id_category': self.id_category
+        }
