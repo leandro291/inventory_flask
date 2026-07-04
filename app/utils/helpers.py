@@ -58,9 +58,8 @@ class CloudinaryHelper:
             secure=True
         )
 
-    def upload_image(self, image: FileStorage, folder: str="products") -> tuple[str, str] | None:
+    def upload_image(self, image: FileStorage, folder: str = "products") -> tuple:
         try:
-
             response = cloudinary.uploader.upload(
                 image,
                 folder=folder
@@ -71,7 +70,7 @@ class CloudinaryHelper:
 
             return secure_url, public_id
         except Exception as e:
-            return None
+            return None, None
         
     def get_secure_url(self, public_id: str) -> str:
         try:
