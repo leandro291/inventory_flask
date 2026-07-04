@@ -1,9 +1,8 @@
-from flask_jwt_extended import create_access_token, create_refresh_token
-
+from db import db
 from app.models.user_model import User
 from app.utils.helpers import crypto_helper
 from app.utils.helpers import password_helper
-from db import db
+from flask_jwt_extended import create_access_token, create_refresh_token
 
 class AuthService:
 
