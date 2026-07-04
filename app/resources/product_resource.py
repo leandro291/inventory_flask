@@ -28,7 +28,7 @@ class ProductResource(Resource):
     def post(self):
         try:
             data = request.form
-            image = request.files['image']
+            image = request.files.get('image')
 
             cloudinary_helper.validate_image(image)
 
@@ -65,7 +65,81 @@ class ProductResource(Resource):
         except Exception as e:
             return {
                 'error': str(e)
-            }
+            }, 400
 
-class ManagerProductResource:
-    pass
+class ManagerProductResource(Resource):
+    def get(self, id_product: int):
+        try:
+            product = product_service.get_by_id(id_product)
+
+            if product is None:
+                return {
+                    'error': 'product not found'
+                }, 404
+            
+            secure_url = cloudinary_helper.get_secure_url(product.image)
+            product.image = secure_url
+            return product.to_json(), 200
+
+        except Exception as e:
+            return {
+                'error': str(e)
+            }, 400
+        
+    def put(self, id_product: int):
+        try:
+            data = request.form
+            validated_data = ProductSchema.model_validate(data)
+
+            product = product_service.get_by_id(id_product)
+
+            if product is None:
+                return {
+                    'error': 'product not found'
+                }, 404
+            
+            image = request.files.get('image')
+
+            if image:
+                cloudinary_helper.validate_image(image)
+
+                secure_url, public_id = cloudinary_helper.upload_image(image, 'products')
+                cloudinary_helper.delete_image(product.image)
+
+                if not secure_url:
+                    return {
+                        'error': 'error uploading image'
+                    }, 404
+                
+                updated_product = product_service.update(validated_data, product, public_id)
+                updated_product.image = secure_url
+            else:
+                updated_product = product_service.update(validated_data, product, None)
+                updated_product.image = cloudinary_helper.get_secure_url(updated_product.image)
+
+            return updated_product.to_json(), 200
+
+        except ValidationError as e:
+            return {
+                'error': e.errors()
+            }, 400
+        except Exception as e:
+            return {
+                'error': str(e)
+            }, 400
+        
+    def delete(self, id_product: int):
+        try:
+            product = product_service.get_by_id(id_product)
+
+            if product is None:
+                return {
+                    'error': 'product not found'
+                }, 404
+            
+            deleted_product = product_service.delete(product)
+            return None, 200
+        except Exception as e:
+            return {
+                'error': str(e)
+            }, 400
