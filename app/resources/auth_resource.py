@@ -1,10 +1,9 @@
-from db import db
+from flask import request
 from flask_restful import Resource
-from app.services.auth_servivce import auth_service
-from app.schemas.auth_schema import LoginSchema, RegisterSchema
 from pydantic import ValidationError
 from app.utils.helpers import password_helper
-from flask import request
+from app.services.auth_servivce import auth_service
+from app.schemas.auth_schema import LoginSchema, RegisterSchema
 
 class LoginResource(Resource):
 

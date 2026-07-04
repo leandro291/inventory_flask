@@ -1,7 +1,6 @@
 from flask import request
-from pydantic import ValidationError
 from flask_restful import Resource
-from app.models.category_model import Category
+from pydantic import ValidationError
 from app.schemas.category_schema import CategorySchema
 from app.services.category_service import category_service  
 

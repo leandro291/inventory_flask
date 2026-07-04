@@ -1,6 +1,6 @@
-from app import app
 from flask_restful import Api
 
+from app import app
 from app.resources.auth_resource import LoginResource, RegisterResource
 from app.resources.role_resource import RoleResource, ManagerRoleResource
 from app.resources.company_resource import CompanyResource, ManagerCompanyResource

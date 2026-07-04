@@ -1,9 +1,9 @@
+from flask import request
 from flask_restful import Resource
-from app.services.company_service import company_service
+from pydantic import ValidationError
 from app.models.company_model import Company
 from app.schemas.company_schema import CompanySchema
-from pydantic import ValidationError
-from flask import request
+from app.services.company_service import company_service
 
 class CompanyResource(Resource):
     

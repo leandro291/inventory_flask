@@ -1,7 +1,6 @@
+from flask import request
 from flask_restful import Resource
 from pydantic import ValidationError
-from flask import request
-from app.models.supplier_model import Supplier
 from app.schemas.supplier_schema import SupplierSchema
 from app.services.supplier_service import supplier_service
 

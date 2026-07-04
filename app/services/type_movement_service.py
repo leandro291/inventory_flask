@@ -1,6 +1,6 @@
+from db import db
 from app.models.type_movement_model import TypeMovement
 from app.schemas.type_movement_schema import TypeMovementSchema
-from db import db
 
 class TypeMovementService:
 

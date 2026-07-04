@@ -1,7 +1,7 @@
 from db import db
 from datetime import datetime
-from sqlalchemy import Integer, String, Boolean, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Integer, String, Boolean, DateTime, func
 
 class Company(db.Model):
 

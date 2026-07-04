@@ -1,7 +1,6 @@
+from db import db
 from app.models.inventory_model import Inventory
 from app.schemas.inventory_schema import InventorySchema
-from db import db
-
 
 class InventoryService:
 

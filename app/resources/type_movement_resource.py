@@ -1,7 +1,6 @@
 from flask import request
 from flask_restful import Resource
 from pydantic import ValidationError
-from app.models.type_movement_model import TypeMovement
 from app.schemas.type_movement_schema import TypeMovementSchema
 from app.services.type_movement_service import type_movement_service
 

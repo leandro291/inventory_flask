@@ -1,7 +1,7 @@
 from db import db
-from sqlalchemy import Integer, String, Text, Boolean, func, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Integer, String, Text, Boolean, func, DateTime
 
 class Role(db.Model):
 
@@ -17,8 +17,8 @@ class Role(db.Model):
     def to_json(self):
         return {
             'id_role': self.id_role,
-            "name": self.name,
-            "description": self.description,
-            "created_at": str(self.created_at),
-            "updated_at": str(self.updated_at)
+            'name': self.name,
+            'description': self.description,
+            'created_at': str(self.created_at),
+            'updated_at': str(self.updated_at)
         }

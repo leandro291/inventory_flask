@@ -1,6 +1,6 @@
+from db import db
 from app.models.role_model import Role
 from app.schemas.role_schema import RoleSchema
-from db import db
 
 class RoleService:
 

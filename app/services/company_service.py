@@ -1,6 +1,6 @@
+from db import db
 from app.models.company_model import Company
 from app.schemas.company_schema import CompanySchema
-from db import db
 
 class CompanyService:
     

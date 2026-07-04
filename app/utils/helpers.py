@@ -1,8 +1,8 @@
+import base64
 import os
-import bcrypt
-import base64 
-import cloudinary
 from typing import Union
+import bcrypt
+import cloudinary
 import cloudinary.uploader
 from cryptography.fernet import Fernet
 from werkzeug.datastructures import FileStorage

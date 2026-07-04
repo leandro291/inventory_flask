@@ -1,7 +1,6 @@
 from flask import request
 from flask_restful import Resource
 from pydantic import ValidationError
-from app.models.repository_model import Repository
 from app.schemas.repository_schema import RepositorySchema
 from app.services.repository_service import repository_service
 

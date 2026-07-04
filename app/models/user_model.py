@@ -1,7 +1,7 @@
 from db import db
-from sqlalchemy import Integer, String, Text, Boolean, DateTime, func, ForeignKey
-from sqlalchemy.orm import mapped_column, Mapped
 from datetime import datetime
+from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy import Integer, String, Text, Boolean, DateTime, func, ForeignKey
 
 class User(db.Model):
 
@@ -19,11 +19,11 @@ class User(db.Model):
 
     def to_json(self):
         return {
-            'id _user': self.id_user,
+            'id_user': self.id_user,
             'name': self.name,
             'last_name': self.last_name,
             'email': self.email,
             'created_at': str(self.created_at),
-            'updated_at': str(self.created_at),
+            'updated_at': str(self.updated_at),
             'id_role': self.id_role
         }

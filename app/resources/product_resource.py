@@ -1,5 +1,5 @@
-from flask_restful import Resource
 from flask import request
+from flask_restful import Resource
 from pydantic import ValidationError
 from app.schemas.product_schema import ProductSchema
 from app.utils.helpers import cloudinary_helper

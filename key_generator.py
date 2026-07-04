@@ -1,5 +1,5 @@
-from cryptography.fernet import Fernet
 import secrets
+from cryptography.fernet import Fernet
 
 key = Fernet.generate_key()
 llave_flask = secrets.token_hex(32)

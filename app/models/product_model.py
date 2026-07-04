@@ -1,7 +1,7 @@
 from db import db
-from sqlalchemy import Integer, String, Text, DECIMAL, DateTime, Boolean, func, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Integer, String, Text, DECIMAL, DateTime, Boolean, func, ForeignKey
 
 class Product(db.Model):
     
@@ -23,6 +23,7 @@ class Product(db.Model):
     def to_json(self) -> dict[str, str]:
         return {
             'id_product': self.id_product,
+            'code': self.code,
             'name': self.name,
             'description': self.description,
             'image': self.image,

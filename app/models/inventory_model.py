@@ -1,7 +1,7 @@
 from db import db
-from sqlalchemy import Integer, Boolean, DateTime, func, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Integer, Boolean, DateTime, func, ForeignKey
 
 class Inventory(db.Model):
     
