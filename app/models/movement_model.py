@@ -29,13 +29,13 @@ class Movement(db.Model):
             items.append({
                 'id_movement_detail': movement_detail.id_movement_detail,
                 'quantity': movement_detail.quantity,
-                'unit_price': movement_detail.unit_price,
+                'unit_price': float(movement_detail.unit_price),
                 'product': {
                     'id_product': movement_detail.product.id_product,
                     'code': movement_detail.product.code,
                     'name': movement_detail.product.name,
-                    'purchase_price': movement_detail.product.purchase_price,
-                    'sale_price': movement_detail.product.sale_price
+                    'purchase_price': float(movement_detail.product.purchase_price),
+                    'sale_price': float(movement_detail.product.sale_price)
                 }
             })
 
