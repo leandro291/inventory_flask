@@ -103,13 +103,15 @@ class ManagerProductResource(Resource):
             if image:
                 cloudinary_helper.validate_image(image)
 
-                secure_url, public_id = cloudinary_helper.upload_image(image, 'products')
+                secure_url, error = cloudinary_helper.upload_image(image, 'products')
                 cloudinary_helper.delete_image(product.image)
 
                 if not secure_url:
                     return {
-                        'error': 'error uploading image'
+                        'error': f'error uploading image: {error}'
                     }, 404
+
+                public_id = error
                 
                 updated_product = product_service.update(validated_data, product, public_id)
                 updated_product.image = secure_url
