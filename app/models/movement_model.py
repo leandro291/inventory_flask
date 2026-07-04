@@ -8,11 +8,9 @@ class Movement(db.Model):
     __tablename__ = "movements"
 
     id_movement: Mapped[int] = mapped_column(Integer, primary_key=True)
-    quantity: Mapped[int] = mapped_column(Integer, nullable=False)
     observation: Mapped[str] = mapped_column(Text, nullable=True)
     status: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now())
-    id_product: Mapped[int] = mapped_column(ForeignKey('products.id_product'), nullable=False)
     id_supplier: Mapped[int] = mapped_column(ForeignKey('suppliers.id_supplier'), nullable=False)
     id_type_movement: Mapped[int] = mapped_column(ForeignKey('type_movements.id_type_movement'), nullable=False)
     id_user: Mapped[int] = mapped_column(ForeignKey('users.id_user'), nullable=False)
