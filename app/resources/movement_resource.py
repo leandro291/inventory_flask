@@ -18,7 +18,9 @@ class MovementResource(Resource):
             movements_list = [movement.to_json() for movement in movements]
             return movements_list, 200
         except Exception as e:
-            return {'error': str(e)}, 400
+            return {
+                'error': str(e)
+                }, 400
 
     def post(self):
         try:
@@ -72,10 +74,14 @@ class MovementResource(Resource):
             return movement.to_json(), 201
 
         except ValidationError as e:
-            return {'error': e.errors()}, 400
+            return {
+                'error': e.errors()
+                }, 400
         except Exception as e:
             db.session.rollback()
-            return {'error': str(e)}, 400
+            return {
+                'error': str(e)
+                }, 400
 
 
 class ManagerMovementResource(Resource):
