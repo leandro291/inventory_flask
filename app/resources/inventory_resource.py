@@ -13,7 +13,9 @@ class InventoryResource(Resource):
             inventories_list = [inventory.to_json() for inventory in inventories]
             return inventories_list, 200
         except Exception as e:
-            return {'error': str(e)}, 400
+            return {
+                'error': str(e)
+                }, 400
 
     def post(self):
         try:
