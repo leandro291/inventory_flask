@@ -1,11 +1,13 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
 from app.schemas.category_schema import CategorySchema
 from app.services.category_service import category_service  
 
 class CategoryResource(Resource):
     
+    @jwt_required()
     def get(self):
         try:
 
@@ -18,6 +20,7 @@ class CategoryResource(Resource):
                 'error': str(e)
             }, 400
         
+    @jwt_required()
     def post(self):
         try:
             
@@ -46,6 +49,7 @@ class CategoryResource(Resource):
 
 class ManagerCategoryResource(Resource):
     
+    @jwt_required()
     def get(self, id_category: int):
         try:
             
@@ -63,6 +67,7 @@ class ManagerCategoryResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def put(self, id_category: int):
         try:
             category = category_service.get_by_id(id_category)
@@ -87,6 +92,7 @@ class ManagerCategoryResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def delete(self, id_category: int):
         try:
             category = category_service.get_by_id(id_category)

@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
 from app.schemas.product_schema import ProductSchema
 from app.utils.helpers import cloudinary_helper
@@ -7,6 +8,7 @@ from app.services.product_service import product_service
 
 class ProductResource(Resource):
 
+    @jwt_required()
     def get(self):
 
         try:
@@ -25,6 +27,7 @@ class ProductResource(Resource):
                 'error': str(e)
             }, 400
         
+    @jwt_required()
     def post(self):
         try:
             data = request.form
@@ -68,6 +71,7 @@ class ProductResource(Resource):
             }, 400
 
 class ManagerProductResource(Resource):
+    @jwt_required()
     def get(self, id_product: int):
         try:
             product = product_service.get_by_id(id_product)
@@ -86,6 +90,7 @@ class ManagerProductResource(Resource):
                 'error': str(e)
             }, 400
         
+    @jwt_required()
     def put(self, id_product: int):
         try:
             data = request.form
@@ -130,6 +135,7 @@ class ManagerProductResource(Resource):
                 'error': str(e)
             }, 400
         
+    @jwt_required()
     def delete(self, id_product: int):
         try:
             product = product_service.get_by_id(id_product)

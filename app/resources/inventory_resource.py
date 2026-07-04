@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
 from app.schemas.inventory_schema import InventorySchema
 from app.services.inventory_service import inventory_service
@@ -7,6 +8,7 @@ from app.services.inventory_service import inventory_service
 
 class InventoryResource(Resource):
 
+    @jwt_required()
     def get(self):
         try:
             inventories = inventory_service.get_all()
@@ -17,6 +19,7 @@ class InventoryResource(Resource):
                 'error': str(e)
                 }, 400
 
+    @jwt_required()
     def post(self):
         try:
             data = request.get_json()
@@ -47,6 +50,7 @@ class InventoryResource(Resource):
 
 class ManagerInventoryResource(Resource):
 
+    @jwt_required()
     def get(self, id_inventory: int):
         try:
             inventory = inventory_service.get_by_id(id_inventory)
@@ -60,6 +64,7 @@ class ManagerInventoryResource(Resource):
                 'error': str(e)
                 }, 400
 
+    @jwt_required()
     def put(self, id_inventory: int):
         try:
             inventory = inventory_service.get_by_id(id_inventory)
@@ -82,6 +87,7 @@ class ManagerInventoryResource(Resource):
                 'error': str(e)
                 }, 400
 
+    @jwt_required()
     def delete(self, id_inventory: int):
         try:
             inventory = inventory_service.get_by_id(id_inventory)

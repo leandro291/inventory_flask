@@ -1,11 +1,13 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
 from app.schemas.type_movement_schema import TypeMovementSchema
 from app.services.type_movement_service import type_movement_service
 
 class TypeMovementResource(Resource):
 
+    @jwt_required()
     def get(self):
         try:
             type_movements = type_movement_service.get_all()
@@ -16,6 +18,7 @@ class TypeMovementResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def post(self):
         try:
             data = request.get_json()
@@ -43,6 +46,7 @@ class TypeMovementResource(Resource):
 
 class ManagerTypeMovementResource(Resource):
 
+    @jwt_required()
     def get(self, id_type_movement: int):
         try:
             type_movement = type_movement_service.get_by_id(id_type_movement)
@@ -59,6 +63,7 @@ class ManagerTypeMovementResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def put(self, id_type_movement: int):
         try:
             type_movement = type_movement_service.get_by_id(id_type_movement)
@@ -90,6 +95,7 @@ class ManagerTypeMovementResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def delete(self, id_type_movement: int):
         try:
             type_movement = type_movement_service.get_by_id(id_type_movement)

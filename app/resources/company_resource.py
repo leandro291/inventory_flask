@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
 from app.models.company_model import Company
 from app.schemas.company_schema import CompanySchema
@@ -7,6 +8,7 @@ from app.services.company_service import company_service
 
 class CompanyResource(Resource):
     
+    @jwt_required()
     def get(self):
         try:
 
@@ -19,6 +21,7 @@ class CompanyResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def post(self):
         try:
             data = request.get_json()
@@ -46,6 +49,7 @@ class CompanyResource(Resource):
 
 class ManagerCompanyResource(Resource):
     
+    @jwt_required()
     def get(self, id_company: int):
         try:
             
@@ -63,6 +67,7 @@ class ManagerCompanyResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def put(self, id_company):
         try:
             company = company_service.get_by_id(id_company)
@@ -88,6 +93,7 @@ class ManagerCompanyResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def delete(self, id_company):
         try:
             company = company_service.get_by_id(id_company)

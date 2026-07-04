@@ -1,11 +1,13 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
 from app.schemas.supplier_schema import SupplierSchema
 from app.services.supplier_service import supplier_service
 
 class SupplierResource(Resource):
 
+    @jwt_required()
     def get(self):
         try:
             suppliers = supplier_service.get_all()
@@ -16,6 +18,7 @@ class SupplierResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def post(self):
         try:
             data = request.get_json()
@@ -43,6 +46,7 @@ class SupplierResource(Resource):
 
 class ManagerSupplierResource(Resource):
 
+    @jwt_required()
     def get(self, id_supplier: int):
         try:
             supplier = supplier_service.get_by_id(id_supplier)
@@ -59,6 +63,7 @@ class ManagerSupplierResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def put(self, id_supplier: int):
         try:
             supplier = supplier_service.get_by_id(id_supplier)
@@ -91,6 +96,7 @@ class ManagerSupplierResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def delete(self, id_supplier: int):
         try:
             supplier = supplier_service.get_by_id(id_supplier)

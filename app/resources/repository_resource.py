@@ -1,11 +1,13 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
 from app.schemas.repository_schema import RepositorySchema
 from app.services.repository_service import repository_service
 
 class RepositoryResource(Resource):
 
+    @jwt_required()
     def get(self):
         try:
             repositories = repository_service.get_all()
@@ -16,6 +18,7 @@ class RepositoryResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def post(self):
         try:
             data = request.get_json()
@@ -43,6 +46,7 @@ class RepositoryResource(Resource):
 
 class ManagerRepositoryResource(Resource):
 
+    @jwt_required()
     def get(self, id_repository: int):
         try:
             repository = repository_service.get_by_id(id_repository)
@@ -59,6 +63,7 @@ class ManagerRepositoryResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def put(self, id_repository: int):
         try:
             repository = repository_service.get_by_id(id_repository)
@@ -90,6 +95,7 @@ class ManagerRepositoryResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def delete(self, id_repository: int):
         try:
             repository = repository_service.get_by_id(id_repository)

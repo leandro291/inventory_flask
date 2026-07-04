@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from flask_jwt_extended import jwt_required
 from pydantic import ValidationError
 from app.models.role_model import Role
 from app.schemas.role_schema import RoleSchema
@@ -7,6 +8,7 @@ from app.services.role_service import role_service
 
 class RoleResource(Resource):
     
+    @jwt_required()
     def get(self):
         
         try:
@@ -20,6 +22,7 @@ class RoleResource(Resource):
                 'error': str(e)
             }, 400
         
+    @jwt_required()
     def post(self):
         try:
 
@@ -49,6 +52,7 @@ class RoleResource(Resource):
 
 class ManagerRoleResource(Resource):
 
+    @jwt_required()
     def get(self, id_role: int):
         try:
             
@@ -66,6 +70,7 @@ class ManagerRoleResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def put(self, id_role: int):
         try:
 
@@ -99,6 +104,7 @@ class ManagerRoleResource(Resource):
                 'error': str(e)
             }, 400
 
+    @jwt_required()
     def delete(self, id_role: int):
         try:
 
