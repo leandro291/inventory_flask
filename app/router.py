@@ -10,6 +10,7 @@ from app.resources.repository_resource import RepositoryResource, ManagerReposit
 from app.resources.type_movement_resource import TypeMovementResource, ManagerTypeMovementResource
 from app.resources.product_resource import ProductResource, ManagerProductResource
 from app.resources.inventory_resource import InventoryResource, ManagerInventoryResource
+from app.resources.movement_resource import MovementResource, ManagerMovementResource
 
 api = Api(app, prefix="/api/v1")
 
@@ -39,3 +40,6 @@ api.add_resource(ManagerCompanyResource, "/company/<int:id_company>")
 
 api.add_resource(InventoryResource, "/inventory")
 api.add_resource(ManagerInventoryResource, "/inventory/<int:id_inventory>")
+
+api.add_resource(MovementResource, "/movement")
+api.add_resource(ManagerMovementResource, "/movement/<int:id_movement>")
