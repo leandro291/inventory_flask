@@ -18,9 +18,9 @@ class Company(db.Model):
     def to_json(self):
         return {
             'id_company': self.id_company,
-            "name": self.name,
-            "ruc": self.ruc,
-            "address": self.address,
-            "created_at": str(self.created_at),
-            "updated_at": str(self.updated_at)
+            'name': self.name,
+            'ruc': self.ruc,
+            'address': self.address,
+            'created_at': str(self.created_at),
+            'updated_at': str(self.updated_at)
         }
